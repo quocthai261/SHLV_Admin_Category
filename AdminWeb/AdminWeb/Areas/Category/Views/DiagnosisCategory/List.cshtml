@@ -60,7 +60,7 @@
                                 <span class="glyphicon glyphicon-edit icon-grid" onclick="onEditDiagnosisCategoryClicked()"></span>
                                 <span class="glyphicon glyphicon-trash icon-grid" onclick="onDateleDiagnosisCategoryClicked()"></span>
                             </text>);
-                            columns.Add().DataField(nameof(DiagnosisCategoryResponseModel.DiagnosisCategoryId)).Caption("ID loại chuẩn đoán");
+                            columns.Add().DataField(nameof(DiagnosisCategoryResponseModel.DiagnosisCategoryId)).Caption("ID loại chuẩn đoán").Width(150);
                             columns.Add().DataField(nameof(DiagnosisCategoryResponseModel.CategoryDescription)).Caption("Mô tả loại chuẩn đoán");
                             columns.Add().DataField(nameof(DiagnosisCategoryResponseModel.IsActive)).Caption("Sử dụng").DataType(GridColumnDataType.Boolean).Alignment(HorizontalAlignment.Center).Width(150);
                             columns.Add().DataField(nameof(DiagnosisCategoryResponseModel.CreationDate)).Caption("Ngày tạo").DataType(GridColumnDataType.DateTime).Format("dd/MM/yyyy  HH:mm").Alignment(HorizontalAlignment.Center).Width(150);

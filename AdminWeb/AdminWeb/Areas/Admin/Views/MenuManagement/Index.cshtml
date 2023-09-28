@@ -1,0 +1,75 @@
+﻿@using AdminWeb.Dtos.ApiResponse
+
+<div class="container-fluid p-0">
+    <h1 class="h4 mb-3 form-title"><strong>Quản lý menu</strong></h1>
+    <div class="row">
+        <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+            <div class="card flex-fill w-100 form-control-ui">
+                <div class="card-body py-3">
+                    @(Html.DevExtreme().DataGrid()
+                        .ID("gridContainer")
+                        .ShowBorders(true)
+                        .Editing(editing =>
+                        {
+                            editing.Mode(GridEditMode.Batch);
+                            editing.AllowAdding(true);
+                            editing.AllowUpdating(true);
+                            editing.AllowDeleting(true);
+                        })
+                        .Columns(columns =>
+                        {
+                            columns.Add()
+                            .Type(GridCommandColumnType.Buttons)
+                            .Width(90)
+                            .Buttons(b =>
+                            {
+                                b.Add().Name(GridColumnButtonName.Delete).CssClass("fa fa-trash").Text("");
+                            }).Fixed(true).FixedPosition(HorizontalEdge.Left);
+                            columns.Add().DataField("MenuId").AllowEditing(false).Caption("ID");
+                            columns.Add().DataField("Content").AllowEditing(true).Caption("Nội dung");
+                            columns.Add().DataField("IconClass").AllowEditing(true).Caption("Lớp biểu tượng");
+                            columns.Add().DataField("Url").AllowEditing(true).Caption("URL");
+                            columns.Add().DataField("Order").AllowEditing(true).Caption("Thứ tự");
+                            columns.Add().DataField("PermissionName").AllowEditing(true).Caption("Tên phân quyền");
+                            columns.Add().DataField("ParentId").AllowEditing(true).Caption("Parent ID");
+                            columns.Add().DataField("IsDisplay").AllowEditing(true).Caption("Hiển thị");
+                            columns.Add().DataField("IsActive").AllowEditing(true).Caption("Sử dụng");
+                            columns.Add().DataField("SystemName").AllowEditing(true).Caption("Tên hệ thống");
+                        })
+                        .DataSource(d => d.WebApi()
+                        .Area("Admin")
+                        .Controller("MenuManagement")
+                        .LoadAction("GetMenuListApi")
+                        .Key("MenuId")
+                        )
+                        .AllowColumnReordering(true)
+                        .AllowColumnResizing(true)
+                        .ColumnAutoWidth(true)
+                        .ColumnResizingMode(ColumnResizingMode.Widget)
+                        .ShowRowLines(true)
+                        .FilterRow(f => f.Visible(true))
+                        .HeaderFilter(f => f.Visible(false))
+                        .GroupPanel(p => p.Visible(false))
+                        .Grouping(g => g.AutoExpandAll(false))
+                        .RemoteOperations(true)
+                        .Paging(paging => paging.PageSize(20))
+                        .Pager(pager =>
+                        {
+                            pager.ShowPageSizeSelector(true);
+                            pager.AllowedPageSizes(new List<int>
+                    { 5, 10, 20 });
+                            pager.ShowInfo(true);
+                        })
+                        )
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>
+
+
+

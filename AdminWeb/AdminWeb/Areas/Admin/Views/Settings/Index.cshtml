@@ -1,0 +1,72 @@
+﻿@using AdminWeb.Dtos.ApiResponse
+
+<div class="container-fluid p-0">
+    <h1 class="h4 mb-3 form-title"><strong>Quản lý cấu hình</strong></h1>
+    <div class="row">
+        <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+            <div class="card flex-fill w-100 form-control-ui">
+                <div class="card-body py-3">
+                    @(Html.DevExtreme().DataGrid()
+                        .ID("gridContainer")
+                        .ShowBorders(true)
+                        .Editing(editing =>
+                        {
+                            editing.Mode(GridEditMode.Batch);
+                            editing.AllowAdding(true);
+                            editing.AllowUpdating(true);
+                            editing.AllowDeleting(true);
+                        })
+                        .Columns(columns =>
+                        {
+                            columns.Add()
+                            .Type(GridCommandColumnType.Buttons)
+                            .Width(90)
+                            .Buttons(b =>
+                            {
+                                b.Add().Name(GridColumnButtonName.Delete).CssClass("fa fa-trash").Text("");
+                            }).Fixed(true).FixedPosition(HorizontalEdge.Left);
+                            columns.Add().DataField("SettingId").AllowEditing(false).Caption("ID").Visible(false);
+                            columns.Add().DataField("GroupSetting").AllowEditing(true).Caption("Nhóm");
+                            columns.Add().DataField("SettingCode").AllowEditing(true).Caption("Mã");
+                            columns.Add().DataField("SettingName").AllowEditing(true).Caption("Tên");
+                            columns.Add().DataField("SettingValue").AllowEditing(true).Caption("Giá trị");
+                            columns.Add().DataField("SettingDesciption").AllowEditing(true).Caption("Mô tả");
+                            columns.Add().DataField("IsActive").AllowEditing(true).Caption("Sử dụng");
+                        })
+                        .DataSource(d => d.WebApi()
+                        .Area("Admin")
+                        .Controller("Settings")
+                        .LoadAction("GetSettingListApi")
+                        .Key("SettingId")
+                        )
+                        .AllowColumnReordering(true)
+                        .AllowColumnResizing(true)
+                        .ColumnAutoWidth(true)
+                        .ColumnResizingMode(ColumnResizingMode.Widget)
+                        .ShowRowLines(true)
+                        .FilterRow(f => f.Visible(true))
+                        .HeaderFilter(f => f.Visible(false))
+                        .GroupPanel(p => p.Visible(false))
+                        .Grouping(g => g.AutoExpandAll(false))
+                        .RemoteOperations(true)
+                        .Paging(paging => paging.PageSize(20))
+                        .Pager(pager =>
+                        {
+                            pager.ShowPageSizeSelector(true);
+                            pager.AllowedPageSizes(new List<int>
+                    { 5, 10, 20 });
+                            pager.ShowInfo(true);
+                        })
+                        )
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>
+
+
+

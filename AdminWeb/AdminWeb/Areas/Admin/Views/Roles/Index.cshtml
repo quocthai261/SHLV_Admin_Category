@@ -1,0 +1,102 @@
+﻿@using AdminWeb.Dtos.ApiResponse
+
+<div class="container-fluid p-0">
+    <h1 class="h4 mb-3 form-title"><strong>Quản lý nhóm người dùng</strong></h1>
+    <div class="row">
+        <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+            <div class="card flex-fill w-100 form-control-ui">
+                <div class="card-header">
+                    <button class="btn btn-purple-invert btn-filter" type="submit"><span class="glyphicon glyphicon-plus"></span> Thêm mới</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+            <div class="card flex-fill w-100 form-control-ui">
+                <div class="card-body py-3">
+                    @(Html.DevExtreme().DataGrid()
+                            .ID("gridUsersList")
+                            .DataSource(d => d.WebApi()
+                            .Area("Admin")
+                            .Controller("Roles")
+                            .LoadAction("GetRolesListApi")
+                            .Key("RoleId")
+                            )
+                            .ShowBorders(true)
+                            .Selection(s => s.Mode(SelectionMode.Single))
+                            .Export(e => e.Enabled(true).AllowExportSelectedData(false)).OnExporting("exportingGridRoles")
+                            .Editing(editing =>
+                            {
+                                editing.Texts(textBuilder =>
+                            {
+                                textBuilder.ConfirmDeleteMessage("Bạn có chắc chắn muốn xóa không");
+                                textBuilder.ConfirmDeleteTitle("Xác nhận xóa");
+                            });
+                            })
+                            .Columns(columns =>
+                            {
+                                columns.Add().Caption("").Width(115)
+                            .DataField(nameof(SysRoleModel.RoleId))
+                            .CellTemplate(@<text>
+                                <div style="text-align: center">
+                                    <a style="cursor: pointer;
+                                                        color: #725dcf !important;
+                                                        font-size: 16px !important;"
+                                       href="@Url.Action("Edit", "Roles", new { Area = "Admin" })/<%= value %>" title="edit">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </a>
+                                    <a style="cursor: pointer;
+                                                        color: #725dcf !important;
+                                                        font-size: 16px !important;"
+                                       href="@Url.Action("Delete", "Roles", new { Area = "Admin" })/<%= value %>" title="delete">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </text>);
+                                @* columns.Add().DataField(nameof(SysUsersModel.UserId)).Visible(false); *@
+                                columns.Add().DataField(nameof(SysRoleModel.Code)).Caption("Mã nhóm người dùng");
+                                columns.Add().DataField(nameof(SysRoleModel.Name)).Caption("Tên nhóm người dùng").Width(700);
+                            })
+                        .ColumnHidingEnabled(true)
+                        .AllowColumnResizing(true)
+                        .ColumnAutoWidth(true)
+                        .ColumnMinWidth(50)
+                        .ShowRowLines(true)
+                        .FilterRow(f => f.Visible(true))
+                        .HeaderFilter(f => f.Visible(false))
+                        .GroupPanel(p => p.Visible(false))
+                        .Grouping(g => g.AutoExpandAll(false))
+                        .RemoteOperations(false)
+                        .Paging(paging => paging.PageSize(10))
+                        .Pager(pager =>
+                        {
+                            pager.ShowPageSizeSelector(true);
+                            pager.AllowedPageSizes(new[] { 5, 10, 20 });
+                            pager.ShowInfo(true);
+                        })
+                        )
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function exportingGridRoles(e) {
+        var workbook = new ExcelJS.Workbook();
+        var worksheet = workbook.addWorksheet('Roles');
+
+        DevExpress.excelExporter.exportDataGrid({
+            component: e.component,
+            worksheet: worksheet,
+            autoFilterEnabled: true
+        }).then(function () {
+            workbook.xlsx.writeBuffer().then(function (buffer) {
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'roleList.xlsx');
+            });
+        });
+        e.cancel = true;
+    }
+</script>
+

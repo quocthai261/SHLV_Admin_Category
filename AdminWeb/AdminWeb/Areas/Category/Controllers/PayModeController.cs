@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace AdminWeb.Areas.Category.Controllers
 {
     [Area("Category")]
-    public class PolicyStatusController : Controller
+    public class PayModeController : Controller
     {
         private readonly IApiService _apiService;
 
-        public PolicyStatusController(IApiService apiService)
+        public PayModeController(IApiService apiService)
         {
             _apiService = apiService;
         }
@@ -33,43 +33,45 @@ namespace AdminWeb.Areas.Category.Controllers
             }
         }
         [HttpGet]
-        public object GetPolicyStatusList(DataSourceLoadOptions loadOptions)
+        public object GetPayModeList(DataSourceLoadOptions loadOptions)
         {
-            var _response = policyStatusList;
+            var _response = payModeList;
 
             return DataSourceLoader.Load(_response, loadOptions);
         }
 
-        public static List<PolicyStatusResponseModel> policyStatusList = new List<PolicyStatusResponseModel>()
+        public static List<PayModeResponseModel> payModeList = new List<PayModeResponseModel>()
         {
-            new PolicyStatusResponseModel
+            new PayModeResponseModel
             {
-                PolicyStatusId = 1,
-                PolicyStatusCode="085",
-                PolicyStatusName="Đến hạn đóng phí",
+                PayModeId = 1,
+                PayModeType="1",
+                PayModeName="Cash",
+                PayModeNameVN="Tiền mặt",
                 IsActive=true,
                 CreationDate=DateTime.Now,
                 LastUpdatedDate=DateTime.Now,
             },
-            new PolicyStatusResponseModel
+            new PayModeResponseModel
             {
-                PolicyStatusId = 2,
-                PolicyStatusCode="CNL02",
-                PolicyStatusName="Hồ sơ tạm hoãn bảo hiểm",
+                PayModeId = 1,
+                PayModeType="1",
+                PayModeName="Cash",
+                PayModeNameVN="Tiền mặt",
                 IsActive=true,
                 CreationDate=DateTime.Now,
                 LastUpdatedDate=DateTime.Now,
             },
-            new PolicyStatusResponseModel
+            new PayModeResponseModel
             {
-                PolicyStatusId = 3,
-                PolicyStatusCode="009",
-                PolicyStatusName="Đã hủy",
+                PayModeId = 1,
+                PayModeType="2",
+                PayModeName="Bank Transfer",
+                PayModeNameVN="Chuyển khoản",
                 IsActive=true,
                 CreationDate=DateTime.Now,
                 LastUpdatedDate=DateTime.Now,
-            }
+            },
         };
-
     }
 }

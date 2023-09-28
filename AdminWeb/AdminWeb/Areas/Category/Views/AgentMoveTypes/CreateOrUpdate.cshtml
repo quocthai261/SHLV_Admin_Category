@@ -1,4 +1,4 @@
-﻿<div class="modal fade" id="popupBankOrg" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="background: #00000080;">
+﻿<div class="modal fade" id="popupAgentMoveTypes" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="background: #00000080;">
     <div class="modal-dialog modal-md" style="max-height:90%; margin-top: 100px;">
         <div class="modal-content" style="max-height: 90%; overflow-y: auto;">
             <div class="modal-header">
@@ -9,21 +9,14 @@
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group">
                             @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
-                                .Label("Tên chi nhánh").Value("Bank Org Name").LabelMode(EditorLabelMode.Floating)
+                                .Label("Mã chuyển đổi").Value("Agent move type").LabelMode(EditorLabelMode.Floating)
                                 .MaxLength(50))
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group">
                             @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
-                                .Label("Mã chi nhánh").Value("Bank Org Code").LabelMode(EditorLabelMode.Floating)
-                                .MaxLength(50))
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                        <div class="form-group">
-                            @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
-                                .Label("Tên Abbr").Value("Abbr name").LabelMode(EditorLabelMode.Floating)
+                                .Label("Tên loại chuyển đổi").Value("Name").LabelMode(EditorLabelMode.Floating)
                                 .MaxLength(50))
                         </div>
                     </div>
@@ -34,11 +27,18 @@
                                 )
                         </div>
                     </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group">
+                            @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
+                                .Label("Miêu tả").Value("Desc.").LabelMode(EditorLabelMode.Floating)
+                                .MaxLength(50))
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="btnSaveBankOrg" onclick="onButtonSaveBankOrgClicked()" type="button" class="btn btn-purple-style">Lưu</button>
-                <button id="btnCloseBankOrg" onclick="onButtonCloseBankOrgClicked()" type="button" class="btn btn-purple-style">Thoát</button>
+                <button id="btnSaveAgentMoveTypes" onclick="onButtonSaveAgentMoveTypesClicked()" type="button" class="btn btn-purple-style">Lưu</button>
+                <button id="btnCloseAgentMoveTypes" onclick="onButtonCloseAgentMoveTypesClicked()" type="button" class="btn btn-purple-style">Thoát</button>
             </div>
         </div>
     </div>
@@ -46,16 +46,16 @@
 
 <script>
 
-    function onButtonSaveBankOrgClicked() {
-        var modal = document.getElementById("popupBankOrg");
+    function onButtonSaveAgentMoveTypesClicked() {
+        var modal = document.getElementById("popupAgentMoveTypes");
         modal.classList.remove("show", "in");
         modal.style.display = "none";
 
         notify("Cập nhật dữ liệu thành công", "success");
     }
 
-    function onButtonCloseBankOrgClicked() {
-        var modal = document.getElementById("popupBankOrg");
+    function onButtonCloseAgentMoveTypesClicked() {
+        var modal = document.getElementById("popupAgentMoveTypes");
         modal.classList.remove("show", "in");
         modal.style.display = "none";
     }

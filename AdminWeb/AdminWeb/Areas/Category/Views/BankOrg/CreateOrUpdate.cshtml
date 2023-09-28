@@ -1,4 +1,4 @@
-﻿<div class="modal fade" id="popupAgentMoveTypes" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="background: #00000080;">
+﻿<div class="modal fade" id="popupBankOrg" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="background: #00000080;">
     <div class="modal-dialog modal-md" style="max-height:90%; margin-top: 100px;">
         <div class="modal-content" style="max-height: 90%; overflow-y: auto;">
             <div class="modal-header">
@@ -9,21 +9,21 @@
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group">
                             @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
-                                .Label("Mã chuyển đổi").Value("Agent move type").LabelMode(EditorLabelMode.Floating)
+                                .Label("Tên chi nhánh").Value("Bank Org Name").LabelMode(EditorLabelMode.Floating)
                                 .MaxLength(50))
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group">
                             @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
-                                .Label("Tên loại chuyển đổi").Value("Name").LabelMode(EditorLabelMode.Floating)
+                                .Label("Mã chi nhánh").Value("Bank Org Code").LabelMode(EditorLabelMode.Floating)
                                 .MaxLength(50))
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group">
                             @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
-                                .Label("Miêu tả").Value("Desc.").LabelMode(EditorLabelMode.Floating)
+                                .Label("Tên Abbr").Value("Abbr name").LabelMode(EditorLabelMode.Floating)
                                 .MaxLength(50))
                         </div>
                     </div>

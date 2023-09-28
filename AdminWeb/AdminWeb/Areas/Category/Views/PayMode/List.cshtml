@@ -68,7 +68,7 @@
                                 <span class="glyphicon glyphicon-trash icon-grid" onclick="onDatelePayModeClicked()"></span>
                             </text>);
                             columns.Add().DataField(nameof(PayModeResponseModel.PayModeId)).Caption("ID thanh toán").Visible(false);
-                            columns.Add().DataField(nameof(PayModeResponseModel.PayModeType)).Caption("Loại thnah toán");
+                            columns.Add().DataField(nameof(PayModeResponseModel.PayModeType)).Caption("Loại thanh toán");
                             columns.Add().DataField(nameof(PayModeResponseModel.PayModeName)).Caption("Phương thức thanh toán");
                             columns.Add().DataField(nameof(PayModeResponseModel.PayModeNameVN)).Caption("Phương thức thanh toán - VN");
                             columns.Add().DataField(nameof(PayModeResponseModel.IsActive)).Caption("Sử dụng").DataType(GridColumnDataType.Boolean).Alignment(HorizontalAlignment.Center).Width(150);

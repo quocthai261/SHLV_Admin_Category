@@ -40,12 +40,6 @@ namespace AdminWeb.Areas.Category.Controllers
             return DataSourceLoader.Load(_response, loadOptions);
         }
 
-        [HttpGet]
-        public object GetDiagnosisCategoryById(int id, DataSourceLoadOptions loadOptions)
-        {
-            IEnumerable<DiagnosisCategoryResponseModel> _response = diagnosisCategoryList.Where(e => e.DiagnosisCategoryId == id).FirstOrDefault();
-            return DataSourceLoader.Load(_response, loadOptions);
-        }
 
         public static List<DiagnosisCategoryResponseModel> diagnosisCategoryList = new()
         {

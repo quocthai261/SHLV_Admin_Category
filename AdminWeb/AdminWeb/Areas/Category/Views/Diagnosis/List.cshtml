@@ -84,7 +84,7 @@
                             columns.Add().DataField(nameof(DiagnosisResponseModel.DiagnoCategory)).Caption("Danh mục").Lookup(lookup => lookup
                             .DataSource(d => d.WebApi()
                             .Controller("DiagnosisCategory")
-                            .LoadAction("GetDiagnosisCategoryById")
+                            .LoadAction("GetDiagnosisCategoryList")
                             .Key("DiagnosisCategoryId"))
                             .DisplayExpr("CategoryDescription")
                             .ValueExpr("DiagnosisCategoryId")

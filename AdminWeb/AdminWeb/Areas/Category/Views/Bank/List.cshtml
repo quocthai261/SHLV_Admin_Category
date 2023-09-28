@@ -3,7 +3,7 @@
 @using AdminWeb.Areas.Category.Controllers
 @using Microsoft.AspNetCore.Mvc.Localization
 
-@inject IHtmlLocalizer<BankOrgController> HtmlLocalizer
+@inject IHtmlLocalizer<CertiTypeController> HtmlLocalizer
 
 @{
     var confirmDeleteMessage = String.Format(@HtmlLocalizer["ConfirmDeleteMessage"].Value);
@@ -11,27 +11,27 @@
 }
 
 <div class="container-fluid p-0">
-    <h1 class="h4 mb-3 form-title"><strong>Quản lý chuyển đổi đại lý</strong></h1>
+    <h1 class="h4 mb-3 form-title"><strong>Danh sách ngân hàng</strong></h1>
     <div class="row">
         <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
             <div class="card flex-fill w-100 form-control-ui">
                 <div class="card-header">
                     <h5 class="card-title mb-0">Tìm kiếm</h5>
-                    <button class="btn btn-purple-invert btn-filter" type="submit" onclick="onAddNewBankOrgClicked()"><span class="glyphicon glyphicon-plus"></span> Thêm mới</button>
+                    <button class="btn btn-purple-invert btn-filter" type="submit" onclick="onAddNewBankClicked()"><span class="glyphicon glyphicon-plus"></span> Thêm mới</button>
                 </div>
                 <div class="card-body py-3">
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                             <div class="form-group">
                                 @(Html.DevExtreme().TextBox()
-                                    .Label("Tên chi nhánh").LabelMode(EditorLabelMode.Floating)
+                                    .Label("Mã ngân hàng").LabelMode(EditorLabelMode.Floating)
                                     .MaxLength(50).ShowClearButton(true))
                             </div>
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                             <div class="form-group">
                                 @(Html.DevExtreme().TextBox()
-                                    .Label("Mã chi nhánh").LabelMode(EditorLabelMode.Floating)
+                                    .Label("Tên ngân hàng").LabelMode(EditorLabelMode.Floating)
                                     .MaxLength(100).ShowClearButton(true))
                             </div>
                         </div>
@@ -51,32 +51,28 @@
             <div class="card flex-fill w-100 form-control-ui">
                 <div class="card-body py-3">
                     @(Html.DevExtreme().DataGrid()
-                        .ID("gridBankOrgList")
+                        .ID("gridBank")
                         .DataSource(d => d.WebApi()
                         .Area("Category")
-                        .Controller("BankOrg")
-                        .LoadAction("GetBankOrgList")
-                        .Key("BankOrgId")
+                        .Controller("Bank")
+                        .LoadAction("GetBankList")
+                        .Key("BankId")
                         )
                         .ShowBorders(true)
                         .Selection(s => s.Mode(SelectionMode.Single))
-                        .Export(e => e.Enabled(true).AllowExportSelectedData(false)).OnExporting("exportingGridBankOrg")
+                        .Export(e => e.Enabled(true).AllowExportSelectedData(false)).OnExporting("exportingGridBank")
                         .Columns(columns =>
                         {
                             columns.Add().Caption("").Width(70).CellTemplate(@<text>
-                                <span class="glyphicon glyphicon-edit icon-grid" onclick="onEditBankOrgClicked()"></span>
-                                <span class="glyphicon glyphicon-trash icon-grid" onclick="onDateleBankOrgClicked()"></span>
+                                <span class="glyphicon glyphicon-edit icon-grid" onclick="onEditBankClicked()"></span>
+                                <span class="glyphicon glyphicon-trash icon-grid" onclick="onDateleBankClicked()"></span>
                             </text>);
-                            columns.Add().DataField(nameof(BankOrgResponseModel.BankOrgId)).Caption("ID chi nhánh").Visible(false);
-                            columns.Add().DataField(nameof(BankOrgResponseModel.BankOrgName)).Caption("Tên chi nhánh");
-                            columns.Add().DataField(nameof(BankOrgResponseModel.BankOrgCode)).Caption("Mã chi nhánh");
-                            columns.Add().DataField(nameof(BankOrgResponseModel.IdType)).Caption("Loại ID");
-                            columns.Add().DataField(nameof(BankOrgResponseModel.IdNumber)).Caption("Số ID");
-                            columns.Add().DataField(nameof(BankOrgResponseModel.AbbrName)).Caption("Tên Abbr");
-                            columns.Add().DataField(nameof(BankOrgResponseModel.Status)).Caption("Trạng thái");
-                            columns.Add().DataField(nameof(BankOrgResponseModel.IsActive)).Caption("Sử dụng").DataType(GridColumnDataType.Boolean).Alignment(HorizontalAlignment.Center).Width(150);
-                            columns.Add().DataField(nameof(BankOrgResponseModel.CreationDate)).Caption("Ngày tạo").DataType(GridColumnDataType.DateTime).Format("dd/MM/yyyy  HH:mm").Alignment(HorizontalAlignment.Center).Width(150);
-                            columns.Add().DataField(nameof(BankOrgResponseModel.LastUpdatedDate)).Caption("Ngày cập nhật").DataType(GridColumnDataType.DateTime).Format("dd/MM/yyyy  HH:mm").Alignment(HorizontalAlignment.Center).Width(150);
+                            columns.Add().DataField(nameof(BankResponseModel.BankId)).Visible(false);
+                            columns.Add().DataField(nameof(BankResponseModel.BankCode)).Caption("Mã ngân hàng").Width(150).Alignment(HorizontalAlignment.Center);
+                            columns.Add().DataField(nameof(BankResponseModel.BankName)).Caption("Tên ngân hàng");
+                            columns.Add().DataField(nameof(BankResponseModel.IsActive)).Caption("Sử dụng").DataType(GridColumnDataType.Boolean).Alignment(HorizontalAlignment.Center).Width(150);
+                            columns.Add().DataField(nameof(BankResponseModel.CreationDate)).Caption("Ngày tạo").DataType(GridColumnDataType.DateTime).Format("dd/MM/yyyy  HH:mm").Alignment(HorizontalAlignment.Center).Width(150);
+                            columns.Add().DataField(nameof(BankResponseModel.LastUpdatedDate)).Caption("Ngày cập nhật").DataType(GridColumnDataType.DateTime).Format("dd/MM/yyyy  HH:mm").Alignment(HorizontalAlignment.Center).Width(150);
                         })
                         .ColumnHidingEnabled(true)
                         .AllowColumnResizing(true)
@@ -105,21 +101,21 @@
 @await Html.PartialAsync("CreateOrUpdate")
 
 <script>
-    function onAddNewBankOrgClicked() {
+    function onAddNewBankClicked() {
 
-        var modal = document.getElementById("popupBankOrg");
+        var modal = document.getElementById("popupBank");
         modal.classList.add("show", "in");
         modal.style.display = "block";
     }
 
-    function onEditBankOrgClicked() {
+    function onEditBankClicked() {
 
-        var modal = document.getElementById("popupBankOrg");
+        var modal = document.getElementById("popupBank");
         modal.classList.add("show", "in");
         modal.style.display = "block";
     }
 
-    function onDateleBankOrgClicked() {
+    function onDateleBankClicked() {
         var myDialog = confirmDialog("Bạn có muốn xóa dữ liệu?", "", "Có", "Không");
         myDialog.show().done(function (dialogResult) {
             if (dialogResult.buttonText === "Có") {
@@ -128,9 +124,9 @@
         });
     }
 
-    function exportingGridBankOrg(e) {
+    function exportingGridBank(e) {
         var workbook = new ExcelJS.Workbook();
-        var worksheet = workbook.addWorksheet('BankOrg');
+        var worksheet = workbook.addWorksheet('Bank');
 
         DevExpress.excelExporter.exportDataGrid({
             component: e.component,
@@ -138,7 +134,7 @@
             autoFilterEnabled: true
         }).then(function () {
             workbook.xlsx.writeBuffer().then(function (buffer) {
-                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'BankOrgList.xlsx');
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'BankList.xlsx');
             });
         });
         e.cancel = true;

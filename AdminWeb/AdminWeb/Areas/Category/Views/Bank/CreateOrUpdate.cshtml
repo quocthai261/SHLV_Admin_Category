@@ -1,29 +1,22 @@
-﻿<div class="modal fade" id="popupBankOrg" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="background: #00000080;">
+﻿<div class="modal fade" id="popupBank" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="background: #00000080;">
     <div class="modal-dialog modal-md" style="max-height:90%; margin-top: 100px;">
         <div class="modal-content" style="max-height: 90%; overflow-y: auto;">
             <div class="modal-header">
-                <h1 class="h4 mb-3 form-title"><strong>Thêm trạng thái hợp đồng</strong></h1>
+                <h1 class="h4 mb-3 form-title"><strong>Thêm ngân hàng</strong></h1>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group">
                             @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
-                                .Label("Mã chuyển đổi").Value("Agent move type").LabelMode(EditorLabelMode.Floating)
+                                .Label("Mã ngân hàng").Value("NNB").LabelMode(EditorLabelMode.Floating)
                                 .MaxLength(50))
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group">
                             @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
-                                .Label("Tên loại chuyển đổi").Value("Name").LabelMode(EditorLabelMode.Floating)
-                                .MaxLength(50))
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                        <div class="form-group">
-                            @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
-                                .Label("Miêu tả").Value("Desc.").LabelMode(EditorLabelMode.Floating)
+                                .Label("Tên ngân hàng").Value("Ngân hàng nhà nước Việt Nam").LabelMode(EditorLabelMode.Floating)
                                 .MaxLength(50))
                         </div>
                     </div>
@@ -37,8 +30,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="btnSaveBankOrg" onclick="onButtonSaveBankOrgClicked()" type="button" class="btn btn-purple-style">Lưu</button>
-                <button id="btnCloseBankOrg" onclick="onButtonCloseBankOrgClicked()" type="button" class="btn btn-purple-style">Thoát</button>
+                <button id="btnSaveBank" onclick="onButtonSaveBankClicked()" type="button" class="btn btn-purple-style">Lưu</button>
+                <button id="btnCloseBank" onclick="onButtonCloseBankClicked()" type="button" class="btn btn-purple-style">Thoát</button>
             </div>
         </div>
     </div>
@@ -46,16 +39,16 @@
 
 <script>
 
-    function onButtonSaveBankOrgClicked() {
-        var modal = document.getElementById("popupBankOrg");
+    function onButtonSaveBankClicked() {
+        var modal = document.getElementById("popupBank");
         modal.classList.remove("show", "in");
         modal.style.display = "none";
 
         notify("Cập nhật dữ liệu thành công", "success");
     }
 
-    function onButtonCloseBankOrgClicked() {
-        var modal = document.getElementById("popupBankOrg");
+    function onButtonCloseBankClicked() {
+        var modal = document.getElementById("popupBank");
         modal.classList.remove("show", "in");
         modal.style.display = "none";
     }

@@ -2,28 +2,28 @@
     <div class="modal-dialog modal-md" style="max-height:90%; margin-top: 100px;">
         <div class="modal-content" style="max-height: 90%; overflow-y: auto;">
             <div class="modal-header">
-                <h1 class="h4 mb-3 form-title"><strong>Thêm câu hỏi tài chính</strong></h1>
+                <h1 class="h4 mb-3 form-title"><strong>Thêm câu trả lời tài chính</strong></h1>
             </div>
             <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-12 col-xl-12">
+                        <div class="form-group">
+                            @(Html.DevExtreme().SelectBox().ElementAttr("class", "required-validation")
+                                .DataSource(d => d.WebApi().Area("Category").Controller("FinancialQuestion").LoadAction("GetFinancialQuestionList"))
+                                .DisplayExpr("QuestionName")
+                                .ValueExpr("QuestionCode")
+                                .Placeholder("Câu hỏi")
+                                .SearchEnabled(true).Label("Câu hỏi").LabelMode(EditorLabelMode.Floating)
+                                .ShowClearButton(true)
+                                )
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group">
                             @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
-                                .Label("Mã câu hỏi").Value("HVCC-CHR-05").LabelMode(EditorLabelMode.Floating)
-                                .MaxLength(50))
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                        <div class="form-group">
-                            @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
                                 .Label("Mã câu trả lời").Value("HVCC_AS05").LabelMode(EditorLabelMode.Floating)
-                                .MaxLength(50))
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                        <div class="form-group">
-                            @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
-                                .Label("Index").Value("1").LabelMode(EditorLabelMode.Floating)
                                 .MaxLength(50))
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                                 )
                         </div>
                     </div>
-                </div>
+                </div> 
             </div>
             <div class="modal-footer">
                 <button id="btnSaveFinancialAnswers" onclick="onButtonSaveFinancialAnswersClicked()" type="button" class="btn btn-purple-style">Lưu</button>

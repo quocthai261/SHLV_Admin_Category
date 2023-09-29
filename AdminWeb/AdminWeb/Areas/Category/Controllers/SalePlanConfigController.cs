@@ -49,10 +49,10 @@ namespace AdminWeb.Areas.Category.Controllers
         {
             new SalePlanConfigResponseModel {
                         SalePlanConfigId = 1,
-                        PositionCode = "03",
+                        PositionCode = "FC",
                         AllowCreateDay = 27,
                         AllowEditDay = 29,
-                        PlanType = 2,
+                        PlanType = 1,
                         IsActive = true,
                         CreationDate = DateTime.Now,
                         LastUpdatedDate = DateTime.Now,
@@ -62,7 +62,7 @@ namespace AdminWeb.Areas.Category.Controllers
                         PositionCode = "FC",
                         AllowCreateDay = 15,
                         AllowEditDay = 17,
-                        PlanType = 1,
+                        PlanType = 2,
                         IsActive = true,
                         CreationDate = DateTime.Now,
                         LastUpdatedDate = DateTime.Now,
@@ -72,7 +72,7 @@ namespace AdminWeb.Areas.Category.Controllers
                         PositionCode = "DM",
                         AllowCreateDay = 27,
                         AllowEditDay = 29,
-                        PlanType = 2,
+                        PlanType = 3,
                         IsActive = true,
                         CreationDate = DateTime.Now,
                         LastUpdatedDate = DateTime.Now,
@@ -82,7 +82,7 @@ namespace AdminWeb.Areas.Category.Controllers
                         PositionCode = "UM",
                         AllowCreateDay = 27,
                         AllowEditDay = 29,
-                        PlanType = 2,
+                        PlanType = 4,
                         IsActive = true,
                         CreationDate = DateTime.Now,
                         LastUpdatedDate = DateTime.Now,
@@ -92,7 +92,7 @@ namespace AdminWeb.Areas.Category.Controllers
                         PositionCode = "SrUM",
                         AllowCreateDay = 27,
                         AllowEditDay = 29,
-                        PlanType = 2,
+                        PlanType = 5,
                         IsActive = true,
                         CreationDate = DateTime.Now,
                         LastUpdatedDate = DateTime.Now,
@@ -102,7 +102,7 @@ namespace AdminWeb.Areas.Category.Controllers
                         PositionCode = "SDM",
                         AllowCreateDay = 27,
                         AllowEditDay = 29,
-                        PlanType = 2,
+                        PlanType = 6,
                         IsActive = true,
                         CreationDate = DateTime.Now,
                         LastUpdatedDate = DateTime.Now,
@@ -112,17 +112,17 @@ namespace AdminWeb.Areas.Category.Controllers
                         PositionCode = "SrDM",
                         AllowCreateDay = 27,
                         AllowEditDay = 29,
-                        PlanType = 2,
+                        PlanType = 7,
                         IsActive = true,
                         CreationDate = DateTime.Now,
                         LastUpdatedDate = DateTime.Now,
                     },
             new SalePlanConfigResponseModel {
-                        SalePlanConfigId = 7,
+                        SalePlanConfigId = 8,
                         PositionCode = "SA",
                         AllowCreateDay = 27,
                         AllowEditDay = 29,
-                        PlanType = 2,
+                        PlanType = 8,
                         IsActive = true,
                         CreationDate = DateTime.Now,
                         LastUpdatedDate = DateTime.Now,
@@ -132,13 +132,69 @@ namespace AdminWeb.Areas.Category.Controllers
                         PositionCode = "RM",
                         AllowCreateDay = 27,
                         AllowEditDay = 29,
-                        PlanType = 2,
+                        PlanType = 9,
                         IsActive = true,
                         CreationDate = DateTime.Now,
                         LastUpdatedDate = DateTime.Now,
                     },  
         };
 
+        //Fake PlanType
+        [HttpGet]
+        public object GetPlanTypeFakeList(DataSourceLoadOptions loadOptions)
+        {
+            var _response = planTypeFakes;
+
+            return DataSourceLoader.Load(_response, loadOptions);
+        }
+        public static List<PlanTypeFake> planTypeFakes = new List<PlanTypeFake>()
+        {
+            new PlanTypeFake
+            {
+                PlanTypeId = 1,
+                PlanName = "Kế hoạch bán hàng"
+            },
+            new PlanTypeFake
+            {
+                PlanTypeId = 2,
+                PlanName = "Kế hoạch bán hàng"
+            },
+            new PlanTypeFake
+            {
+                PlanTypeId = 3,
+                PlanName = "Kế hoạch mở rộng"
+            },
+            new PlanTypeFake
+            {
+                PlanTypeId = 4,
+                PlanName = "Kế hoạch quản lý"
+            },
+            new PlanTypeFake
+            {
+                PlanTypeId = 5,
+                PlanName = "Kế hoạch tăng doanh số"
+            },
+            new PlanTypeFake
+            {
+                PlanTypeId = 6,
+                PlanName = "Kế hoạch marketing"
+            },
+            new PlanTypeFake
+            {
+                PlanTypeId = 7,
+                PlanName = "Kế hoạch giảm chi phí"
+            },
+            new PlanTypeFake
+            {
+                PlanTypeId = 8,
+                PlanName = "Kế hoạch xử lý khủng hoảng"
+            },
+            new PlanTypeFake
+            {
+                PlanTypeId = 9,
+                PlanName ="Kế hoạch gia tăng khách hàng tiềm năng"
+            }
+        };
         #endregion
     }
 }

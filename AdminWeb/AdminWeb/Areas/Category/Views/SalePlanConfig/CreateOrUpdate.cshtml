@@ -8,9 +8,14 @@
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group">
-                            @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
-                                .Label("Loại kế hoạch").Value("2").LabelMode(EditorLabelMode.Floating)
-                                .MaxLength(50))
+                            @(Html.DevExtreme().SelectBox().ElementAttr("class", "required-validation")
+                                .DataSource(d => d.WebApi().Area("Category").Controller("SalePlanConfig").LoadAction("GetPlanTypeFakeList"))
+                                .DisplayExpr("PlanName")
+                                .ValueExpr("PlanTypeId")
+                                .Placeholder("Chọn loại kế hoạch")
+                                .SearchEnabled(true).Label("Loại kế hoạch").LabelMode(EditorLabelMode.Floating)
+                                .ShowClearButton(true)
+                                )
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">

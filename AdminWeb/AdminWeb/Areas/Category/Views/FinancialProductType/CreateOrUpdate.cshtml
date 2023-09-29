@@ -20,13 +20,8 @@
                                 .MaxLength(50))
                         </div>
                     </div>
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                        <div class="form-group">
-                            @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
-                                .Label("Hình ảnh").Value("FinalcialDemandAnalysis/ProductType/VVTC.png").LabelMode(EditorLabelMode.Floating)
-                                .MaxLength(50))
-                        </div>
-                    </div>
+                </div>
+                <div class="row">
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group">
                             @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
@@ -34,6 +29,11 @@
                                 .MaxLength(50))
                         </div>
                     </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <button class="btn btn-purple-style" type="submit">Tải hình ảnh lên</button>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group">
                             @(Html.DevExtreme().CheckBox().Value(true).IconSize(18).ElementAttr("aria-label", "Custom size")

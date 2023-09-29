@@ -1,4 +1,4 @@
-﻿<div class="modal fade" id="popupProvince" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="background: #00000080;">
+﻿<div class="modal fade" id="popupRelation" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="background: #00000080;">
     <div class="modal-dialog modal-md" style="max-height:90%; margin-top: 100px;">
         <div class="modal-content" style="max-height: 90%; overflow-y: auto;">
             <div class="modal-header">
@@ -9,14 +9,14 @@
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group">
                             @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
-                                .Label("Mã tỉnh thành").Value("701").LabelMode(EditorLabelMode.Floating)
+                                .Label("Mã mối quan hệ").Value("01").LabelMode(EditorLabelMode.Floating)
                                 .MaxLength(50))
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group">
                             @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
-                                .Label("Tên tỉnh thành").Value("Thành phố Hồ Chí Minh").LabelMode(EditorLabelMode.Floating)
+                                .Label("Tên mối quan hệ").Value("Cha Mẹ ruột").LabelMode(EditorLabelMode.Floating)
                                 .MaxLength(50))
                         </div>
                     </div>
@@ -30,8 +30,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="btnSaveProvince" onclick="onButtonSaveProvinceClicked()" type="button" class="btn btn-purple-style">Lưu</button>
-                <button id="btnCloseProvince" onclick="onButtonCloseProvinceClicked()" type="button" class="btn btn-purple-style">Thoát</button>
+                <button id="btnSaveRelation" onclick="onButtonSaveRelationClicked()" type="button" class="btn btn-purple-style">Lưu</button>
+                <button id="btnCloseRelation" onclick="onButtonCloseRelationClicked()" type="button" class="btn btn-purple-style">Thoát</button>
             </div>
         </div>
     </div>
@@ -39,16 +39,16 @@
 
 <script>
 
-    function onButtonSaveProvinceClicked() {
-        var modal = document.getElementById("popupProvince");
+    function onButtonSaveRelationClicked() {
+        var modal = document.getElementById("popupRelation");
         modal.classList.remove("show", "in");
         modal.style.display = "none";
 
         notify("Cập nhật dữ liệu thành công", "success");
     }
 
-    function onButtonCloseProvinceClicked() {
-        var modal = document.getElementById("popupProvince");
+    function onButtonCloseRelationClicked() {
+        var modal = document.getElementById("popupRelation");
         modal.classList.remove("show", "in");
         modal.style.display = "none";
     }

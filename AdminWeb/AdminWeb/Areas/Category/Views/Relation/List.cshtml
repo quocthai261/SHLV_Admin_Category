@@ -3,7 +3,7 @@
 @using AdminWeb.Areas.Category.Controllers
 @using Microsoft.AspNetCore.Mvc.Localization
 
-@inject IHtmlLocalizer<ProvinceController> HtmlLocalizer
+@inject IHtmlLocalizer<RelationController> HtmlLocalizer
 
 @{
     var confirmDeleteMessage = String.Format(@HtmlLocalizer["ConfirmDeleteMessage"].Value);
@@ -11,27 +11,27 @@
 }
 
 <div class="container-fluid p-0">
-    <h1 class="h4 mb-3 form-title"><strong>Danh sách các tỉnh thành Việt Nam</strong></h1>
+    <h1 class="h4 mb-3 form-title"><strong>Danh sách các mối quan hệ</strong></h1>
     <div class="row">
         <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
             <div class="card flex-fill w-100 form-control-ui">
                 <div class="card-header">
                     <h5 class="card-title mb-0">Tìm kiếm</h5>
-                    <button class="btn btn-purple-invert btn-filter" type="submit" onclick="onAddNewProvinceClicked()"><span class="glyphicon glyphicon-plus"></span> Thêm mới</button>
+                    <button class="btn btn-purple-invert btn-filter" type="submit" onclick="onAddNewRelationClicked()"><span class="glyphicon glyphicon-plus"></span> Thêm mới</button>
                 </div>
                 <div class="card-body py-3">
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                             <div class="form-group">
                                 @(Html.DevExtreme().TextBox()
-                                    .Label("Mã tỉnh thành").LabelMode(EditorLabelMode.Floating)
+                                    .Label("Mã mối quan hệ").LabelMode(EditorLabelMode.Floating)
                                     .MaxLength(50).ShowClearButton(true))
                             </div>
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                             <div class="form-group">
                                 @(Html.DevExtreme().TextBox()
-                                    .Label("Tên tỉnh thành - VN").LabelMode(EditorLabelMode.Floating)
+                                    .Label("Tên mối quan hệ").LabelMode(EditorLabelMode.Floating)
                                     .MaxLength(100).ShowClearButton(true))
                             </div>
                         </div>
@@ -51,28 +51,28 @@
             <div class="card flex-fill w-100 form-control-ui">
                 <div class="card-body py-3">
                     @(Html.DevExtreme().DataGrid()
-                        .ID("gridProvinceType")
+                        .ID("gridRelationType")
                         .DataSource(d => d.WebApi()
                         .Area("Category")
-                        .Controller("Province")
-                        .LoadAction("GetProvinceList")
-                        .Key("ProvinceId")
+                        .Controller("Relation")
+                        .LoadAction("GetRelationList")
+                        .Key("RelationId")
                         )
                         .ShowBorders(true)
                         .Selection(s => s.Mode(SelectionMode.Single))
-                        .Export(e => e.Enabled(true).AllowExportSelectedData(false)).OnExporting("exportingGridProvince")
+                        .Export(e => e.Enabled(true).AllowExportSelectedData(false)).OnExporting("exportingGridRelation")
                         .Columns(columns =>
                         {
                             columns.Add().Caption("").Width(70).CellTemplate(@<text>
-                                <span class="glyphicon glyphicon-edit icon-grid" onclick="onEditProvinceClicked()"></span>
-                                <span class="glyphicon glyphicon-trash icon-grid" onclick="onDateleProvinceClicked()"></span>
+                                <span class="glyphicon glyphicon-edit icon-grid" onclick="onEditRelationClicked()"></span>
+                                <span class="glyphicon glyphicon-trash icon-grid" onclick="onDateleRelationClicked()"></span>
                             </text>);
-                            columns.Add().DataField(nameof(ProvinceResponseModel.ProvinceId)).Visible(false);
-                            columns.Add().DataField(nameof(ProvinceResponseModel.ProvinceCode)).Caption("Mã tỉnh thành").Width(150).Alignment(HorizontalAlignment.Center);
-                            columns.Add().DataField(nameof(ProvinceResponseModel.ProvinceName)).Caption("Tên tỉnh thành");
-                            columns.Add().DataField(nameof(ProvinceResponseModel.IsActive)).Caption("Sử dụng").DataType(GridColumnDataType.Boolean).Alignment(HorizontalAlignment.Center).Width(150);
-                            columns.Add().DataField(nameof(ProvinceResponseModel.CreationDate)).Caption("Ngày tạo").DataType(GridColumnDataType.DateTime).Format("dd/MM/yyyy  HH:mm").Alignment(HorizontalAlignment.Center).Width(150);
-                            columns.Add().DataField(nameof(ProvinceResponseModel.LastUpdatedDate)).Caption("Ngày cập nhật").DataType(GridColumnDataType.DateTime).Format("dd/MM/yyyy  HH:mm").Alignment(HorizontalAlignment.Center).Width(150);
+                            columns.Add().DataField(nameof(RelationResponseModel.RelationId)).Visible(false);
+                            columns.Add().DataField(nameof(RelationResponseModel.RelationCode)).Caption("Mã mối quan hệ").Width(150).Alignment(HorizontalAlignment.Center);
+                            columns.Add().DataField(nameof(RelationResponseModel.RelationName)).Caption("Tên mối quan hệ");
+                            columns.Add().DataField(nameof(RelationResponseModel.IsActive)).Caption("Sử dụng").DataType(GridColumnDataType.Boolean).Alignment(HorizontalAlignment.Center).Width(150);
+                            columns.Add().DataField(nameof(RelationResponseModel.CreationDate)).Caption("Ngày tạo").DataType(GridColumnDataType.DateTime).Format("dd/MM/yyyy  HH:mm").Alignment(HorizontalAlignment.Center).Width(150);
+                            columns.Add().DataField(nameof(RelationResponseModel.LastUpdatedDate)).Caption("Ngày cập nhật").DataType(GridColumnDataType.DateTime).Format("dd/MM/yyyy  HH:mm").Alignment(HorizontalAlignment.Center).Width(150);
                         })
                         .ColumnHidingEnabled(true)
                         .AllowColumnResizing(true)
@@ -101,21 +101,21 @@
 @await Html.PartialAsync("CreateOrUpdate")
 
 <script>
-    function onAddNewProvinceClicked() {
+    function onAddNewRelationClicked() {
 
-        var modal = document.getElementById("popupProvince");
+        var modal = document.getElementById("popupRelation");
         modal.classList.add("show", "in");
         modal.style.display = "block";
     }
 
-    function onEditProvinceClicked() {
+    function onEditRelationClicked() {
 
-        var modal = document.getElementById("popupProvince");
+        var modal = document.getElementById("popupRelation");
         modal.classList.add("show", "in");
         modal.style.display = "block";
     }
 
-    function onDateleProvinceClicked() {
+    function onDateleRelationClicked() {
         var myDialog = confirmDialog("Bạn có muốn xóa dữ liệu?", "", "Có", "Không");
         myDialog.show().done(function (dialogResult) {
             if (dialogResult.buttonText === "Có") {
@@ -124,9 +124,9 @@
         });
     }
 
-    function exportingGridProvince(e) {
+    function exportingGridRelation(e) {
         var workbook = new ExcelJS.Workbook();
-        var worksheet = workbook.addWorksheet('Province');
+        var worksheet = workbook.addWorksheet('Relation');
 
         DevExpress.excelExporter.exportDataGrid({
             component: e.component,
@@ -134,7 +134,7 @@
             autoFilterEnabled: true
         }).then(function () {
             workbook.xlsx.writeBuffer().then(function (buffer) {
-                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'ProvinceList.xlsx');
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'RelationList.xlsx');
             });
         });
         e.cancel = true;

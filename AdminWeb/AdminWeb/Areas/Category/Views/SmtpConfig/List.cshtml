@@ -1,0 +1,166 @@
+﻿@using AdminWeb.Dtos.ApiResponse;
+@using AdminWeb.Models
+@using AdminWeb.Areas.Category.Controllers
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IHtmlLocalizer<SmtpConfigController> HtmlLocalizer
+
+@{
+    var confirmDeleteMessage = String.Format(@HtmlLocalizer["ConfirmDeleteMessage"].Value);
+    var confirmDeleteTitle = String.Format(@HtmlLocalizer["ConfirmDeleteTitle"].Value);
+}
+
+<div class="container-fluid p-0">
+    <h1 class="h4 mb-3 form-title"><strong>Quản lý cấu hình giao thức truyền tải</strong></h1>
+    <div class="row">
+        <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+            <div class="card flex-fill w-100 form-control-ui">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Tìm kiếm</h5>
+                    <button class="btn btn-purple-invert btn-filter" type="submit" onclick="onAddNewSmtpConfigClicked()"><span class="glyphicon glyphicon-plus"></span> Thêm mới</button>
+                </div>
+                <div class="card-body py-3">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                @(Html.DevExtreme().TextBox()
+                                    .Label("Username").LabelMode(EditorLabelMode.Floating)
+                                    .MaxLength(50).ShowClearButton(true))
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                @(Html.DevExtreme().TextBox()
+                                    .Label("Password").LabelMode(EditorLabelMode.Floating)
+                                    .MaxLength(100).ShowClearButton(true))
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                @(Html.DevExtreme().TextBox()
+                                    .Label("Tên hiển thị").LabelMode(EditorLabelMode.Floating)
+                                    .MaxLength(50).ShowClearButton(true))
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                @(Html.DevExtreme().TextBox()
+                                    .Label("Địa chỉ").LabelMode(EditorLabelMode.Floating)
+                                    .MaxLength(100).ShowClearButton(true))
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row button-search-row">
+                        <div class="col-md-12">
+                            <button class="btn btn-purple-style" type="submit">@HtmlLocalizer["Clear"]</button>
+                            <button class="btn btn-purple-style" type="submit">@HtmlLocalizer["Search"]</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+            <div class="card flex-fill w-100 form-control-ui">
+                <div class="card-body py-3">
+                    @(Html.DevExtreme().DataGrid()
+                        .ID("gridSmtpConfigList")
+                        .DataSource(d => d.WebApi()
+                        .Area("Category")
+                        .Controller("SmtpConfig")
+                        .LoadAction("GetSmtpConfigList")
+                        .Key("SmtpConfigId")
+                        )
+                        .ShowBorders(true)
+                        .Selection(s => s.Mode(SelectionMode.Single))
+                        .Export(e => e.Enabled(true).AllowExportSelectedData(false)).OnExporting("exportingGridSmtpConfig")
+                        .Columns(columns =>
+                        {
+                            columns.Add().Caption("").Width(70).CellTemplate(@<text>
+                                <span class="glyphicon glyphicon-edit icon-grid" onclick="onEditSmtpConfigClicked()"></span>
+                                <span class="glyphicon glyphicon-trash icon-grid" onclick="onDateleSmtpConfigClicked()"></span>
+                            </text>);
+                            columns.Add().DataField(nameof(SmtpConfigResponseModel.SmtpConfigId)).Caption("ID cấu hình").Visible(false);
+                            columns.Add().DataField(nameof(SmtpConfigResponseModel.NetworkCredentialUsername)).Caption("Username");
+                            columns.Add().DataField(nameof(SmtpConfigResponseModel.NetworkCredentialPassword)).Caption("Password");
+                            columns.Add().DataField(nameof(SmtpConfigResponseModel.FromAddress)).Caption("Địa chỉ");
+                            columns.Add().DataField(nameof(SmtpConfigResponseModel.FromDisplayName)).Caption("Tên hiển thị");
+                            columns.Add().DataField(nameof(SmtpConfigResponseModel.EnableSSL)).Caption("SSL").DataType(GridColumnDataType.Boolean);
+                            columns.Add().DataField(nameof(SmtpConfigResponseModel.SmtpClientPort)).Caption("Client Port");
+                            columns.Add().DataField(nameof(SmtpConfigResponseModel.SmtpClientHost)).Caption("Client Host");
+                            columns.Add().DataField(nameof(SmtpConfigResponseModel.Active)).Caption("Sử dụng").DataType(GridColumnDataType.Boolean);
+                            columns.Add().DataField(nameof(SmtpConfigResponseModel.GroupCode)).Caption("Mã nhóm");
+                            columns.Add().DataField(nameof(SmtpConfigResponseModel.ListMailCC)).Caption("List Mail CC");
+                            columns.Add().DataField(nameof(SmtpConfigResponseModel.CreationDate)).Caption("Ngày tạo").DataType(GridColumnDataType.DateTime).Format("dd/MM/yyyy  HH:mm").Alignment(HorizontalAlignment.Center).Width(150);
+                            columns.Add().DataField(nameof(SmtpConfigResponseModel.LastUpdatedDate)).Caption("Ngày cập nhật").DataType(GridColumnDataType.DateTime).Format("dd/MM/yyyy  HH:mm").Alignment(HorizontalAlignment.Center).Width(150);
+                        })
+                        .ColumnHidingEnabled(false)
+                        .AllowColumnResizing(true)
+                        .ColumnAutoWidth(true)
+                        .ColumnMinWidth(50)
+                        .ShowRowLines(true)
+                        .FilterRow(f => f.Visible(true))
+                        .HeaderFilter(f => f.Visible(false))
+                        .GroupPanel(p => p.Visible(false))
+                        .Grouping(g => g.AutoExpandAll(false))
+                        .RemoteOperations(false)
+                        .Paging(paging => paging.PageSize(10))
+                        .Pager(pager =>
+                        {
+                            pager.ShowPageSizeSelector(true);
+                            pager.AllowedPageSizes(new[] { 5, 10, 20 });
+                            pager.ShowInfo(true);
+                        })
+                        )
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("CreateOrUpdate")
+
+<script>
+    function onAddNewSmtpConfigClicked() {
+
+        var modal = document.getElementById("popupSmtpConfig");
+        modal.classList.add("show", "in");
+        modal.style.display = "block";
+    }
+
+    function onEditSmtpConfigClicked() {
+
+        var modal = document.getElementById("popupSmtpConfig");
+        modal.classList.add("show", "in");
+        modal.style.display = "block";
+    }
+
+    function onDateleSmtpConfigClicked() {
+        var myDialog = confirmDialog("Bạn có muốn xóa dữ liệu?", "", "Có", "Không");
+        myDialog.show().done(function (dialogResult) {
+            if (dialogResult.buttonText === "Có") {
+                notify("Xóa dữ liệu thành công", "success");
+            }
+        });
+    }
+
+    function exportingGridSmtpConfig(e) {
+        var workbook = new ExcelJS.Workbook();
+        var worksheet = workbook.addWorksheet('SmtpConfig');
+
+        DevExpress.excelExporter.exportDataGrid({
+            component: e.component,
+            worksheet: worksheet,
+            autoFilterEnabled: true
+        }).then(function () {
+            workbook.xlsx.writeBuffer().then(function (buffer) {
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'SmtpConfigList.xlsx');
+            });
+        });
+        e.cancel = true;
+    }
+</script>
+

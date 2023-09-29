@@ -21,21 +21,14 @@
                 </div>
                 <div class="card-body py-3">
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                            <div class="form-group">
-                                @(Html.DevExtreme().TextBox()
-                                    .Label("Mã sản phẩm").LabelMode(EditorLabelMode.Floating)
-                                    .MaxLength(50).ShowClearButton(true))
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                             <div class="form-group">
                                 @(Html.DevExtreme().TextBox()
                                     .Label("Mã câu hỏi").LabelMode(EditorLabelMode.Floating)
                                     .MaxLength(100).ShowClearButton(true))
                             </div>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                             <div class="form-group">
                                 @(Html.DevExtreme().SelectBox().ElementAttr("class", "required-validation")
                                     .ID("FinancialQuestionCategorySelectBoxSearch")

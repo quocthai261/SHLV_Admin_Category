@@ -1,0 +1,113 @@
+﻿<div class="modal fade" id="popupSmtpConfig" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="background: #00000080;">
+    <div class="modal-dialog modal-md" style="max-height:90%; margin-top: 100px;">
+        <div class="modal-content" style="max-height: 90%; overflow-y: auto;">
+            <div class="modal-header">
+                <h1 class="h4 mb-3 form-title"><strong>Thêm cấu hình giao thức truyền tải</strong></h1>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group">
+                            @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
+                                .Label("Username").Value("Limepro@hanwhalife.com.vn").LabelMode(EditorLabelMode.Floating)
+                                .MaxLength(50))
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group">
+                            @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
+                                .Label("Password").Value("LIME@2021!").LabelMode(EditorLabelMode.Floating)
+                                .MaxLength(50))
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group">
+                            @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
+                                .Label("Địa chỉ").Value("Limepro@hanwhalife.com.vn").LabelMode(EditorLabelMode.Floating)
+                                .MaxLength(50))
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group">
+                            @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
+                                .Label("Tên hiển thị").Value("Sales Force Automation").LabelMode(EditorLabelMode.Floating)
+                                .MaxLength(50))
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group">
+                            @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
+                                .Label("Client Port").Value("25").LabelMode(EditorLabelMode.Floating)
+                                .MaxLength(50))
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group">
+                            @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
+                                .Label("Client Host").Value("mail.hanwhalife.com.vn").LabelMode(EditorLabelMode.Floating)
+                                .MaxLength(50))
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group">
+                            @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
+                                .Label("Mã nhóm").Value("HLV_SFA").LabelMode(EditorLabelMode.Floating)
+                                .MaxLength(50))
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group">
+                            @(Html.DevExtreme().TextBox().ElementAttr("class", "required-validation")
+                                .Label("List Mail CC").Value("agency.admin@hanwhalife.com").LabelMode(EditorLabelMode.Floating)
+                                .MaxLength(50))
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group">
+                            @(Html.DevExtreme().CheckBox().Value(true).IconSize(18).ElementAttr("aria-label", "Custom size")
+                                .Text("SSL")
+                                )
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group">
+                            @(Html.DevExtreme().CheckBox().Value(true).IconSize(18).ElementAttr("aria-label", "Custom size")
+                                .Text("Sử dụng")
+                                )
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSaveSmtpConfig" onclick="onButtonSaveSmtpConfigClicked()" type="button" class="btn btn-purple-style">Lưu</button>
+                <button id="btnCloseSmtpConfig" onclick="onButtonCloseSmtpConfigClicked()" type="button" class="btn btn-purple-style">Thoát</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function onButtonSaveSmtpConfigClicked() {
+        var modal = document.getElementById("popupSmtpConfig");
+        modal.classList.remove("show", "in");
+        modal.style.display = "none";
+
+        notify("Cập nhật dữ liệu thành công", "success");
+    }
+
+    function onButtonCloseSmtpConfigClicked() {
+        var modal = document.getElementById("popupSmtpConfig");
+        modal.classList.remove("show", "in");
+        modal.style.display = "none";
+    }
+
+</script>

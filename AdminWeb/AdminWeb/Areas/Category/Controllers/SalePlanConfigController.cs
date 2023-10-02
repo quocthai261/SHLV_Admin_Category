@@ -140,7 +140,7 @@ namespace AdminWeb.Areas.Category.Controllers
         };
 
         //Fake PlanType
-        [HttpGet]
+      /*  [HttpGet]
         public object GetPlanTypeFakeList(DataSourceLoadOptions loadOptions)
         {
             var _response = planTypeFakes;
@@ -194,7 +194,7 @@ namespace AdminWeb.Areas.Category.Controllers
                 PlanTypeId = 9,
                 PlanName ="Kế hoạch gia tăng khách hàng tiềm năng"
             }
-        };
+        };*/
         #endregion
     }
 }

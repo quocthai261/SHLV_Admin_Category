@@ -24,9 +24,9 @@
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                             <div class="form-group">
                                 @(Html.DevExtreme().SelectBox().ElementAttr("class", "required-validation")
-                                    .DataSource(d => d.WebApi().Area("Category").Controller("SalePlanConfig").LoadAction("GetPlanTypeFakeList"))
-                                    .DisplayExpr("PlanName")
-                                    .ValueExpr("PlanTypeId")
+                                    .DataSource(d => d.WebApi().Area("Category").Controller("SalePlanTypes").LoadAction("GetSalePlanTypesList"))
+                                    .DisplayExpr("Title")
+                                    .ValueExpr("SalePlanTypesId")
                                     .Placeholder("Chọn loại kế hoạch")
                                     .SearchEnabled(true).Label("Loại kế hoạch").LabelMode(EditorLabelMode.Floating)
                                     .ShowClearButton(true)
@@ -45,7 +45,7 @@
                                     )
                             </div>
                         </div>
-                    </div> 
+                    </div>
                     <div class="row button-search-row">
                         <div class="col-md-12">
                             <button class="btn btn-purple-style" type="submit">@HtmlLocalizer["Clear"]</button>
@@ -78,13 +78,13 @@
                                 <span class="glyphicon glyphicon-trash icon-grid" onclick="onDateleSalePlanConfigClicked()"></span>
                             </text>);
                             columns.Add().DataField(nameof(SalePlanConfigResponseModel.SalePlanConfigId)).Visible(false);
-                           columns.Add().DataField(nameof(SalePlanConfigResponseModel.PlanType)).Caption("Loại kế hoạch").Lookup(lookup => lookup
+                            columns.Add().DataField(nameof(SalePlanConfigResponseModel.PlanType)).Caption("Loại kế hoạch").Lookup(lookup => lookup
                             .DataSource(d => d.WebApi()
-                            .Controller("SalePlanConfig")
-                            .LoadAction("GetPlanTypeFakeList")
-                            .Key("PlanTypeId"))
-                            .DisplayExpr("PlanName")
-                            .ValueExpr("PlanTypeId")
+                            .Controller("SalePlanTypes")
+                            .LoadAction("GetSalePlanTypesList")
+                            .Key("SalePlanTypesId"))
+                            .DisplayExpr("Title")
+                            .ValueExpr("SalePlanTypesId")
                             );
                             columns.Add().DataField(nameof(SalePlanConfigResponseModel.AllowCreateDay)).Caption("Ngày được phép tạo").Width(200).Alignment(HorizontalAlignment.Center);
                             columns.Add().DataField(nameof(SalePlanConfigResponseModel.AllowEditDay)).Caption("Ngày được phép sửa").Width(200).Alignment(HorizontalAlignment.Center);

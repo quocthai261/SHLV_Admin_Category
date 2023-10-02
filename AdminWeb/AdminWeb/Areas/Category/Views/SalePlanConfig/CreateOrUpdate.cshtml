@@ -9,9 +9,9 @@
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group">
                             @(Html.DevExtreme().SelectBox().ElementAttr("class", "required-validation")
-                                .DataSource(d => d.WebApi().Area("Category").Controller("SalePlanConfig").LoadAction("GetPlanTypeFakeList"))
-                                .DisplayExpr("PlanName")
-                                .ValueExpr("PlanTypeId")
+                                .DataSource(d => d.WebApi().Area("Category").Controller("SalePlanTypes").LoadAction("GetSalePlanTypesList"))
+                                .DisplayExpr("Title")
+                                .ValueExpr("SalePlanTypesId")
                                 .Placeholder("Chọn loại kế hoạch")
                                 .SearchEnabled(true).Label("Loại kế hoạch").LabelMode(EditorLabelMode.Floating)
                                 .ShowClearButton(true)
@@ -21,16 +21,35 @@
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group">
                             @(Html.DevExtreme().SelectBox().ElementAttr("class", "required-validation")
-                                    .ID("SalePlanConfigCategorySelectBoxCreateOrUpdate")
-                                    .DataSource(d => d.WebApi().Area("Category").Controller("Position").LoadAction("GetPositionList"))
-                                    .DisplayExpr("PositionName")
-                                    .ValueExpr("PositionId")
-                                    .Placeholder("Chọn vị trí")
-                                    .SearchEnabled(true).Label("Vị trí").LabelMode(EditorLabelMode.Floating)
-                                    .ShowClearButton(true)
-                                    )
+                                .ID("SalePlanConfigCategorySelectBoxCreateOrUpdate")
+                                .DataSource(d => d.WebApi().Area("Category").Controller("Position").LoadAction("GetPositionList"))
+                                .DisplayExpr("PositionName")
+                                .ValueExpr("PositionId")
+                                .Placeholder("Chọn vị trí")
+                                .SearchEnabled(true).Label("Vị trí").LabelMode(EditorLabelMode.Floating)
+                                .ShowClearButton(true)
+                                )
                         </div>
                     </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group">
+                            @(Html.DevExtreme().TextBox()
+                                .Label("Ngày được phép tạo").LabelMode(EditorLabelMode.Floating)
+                                .MaxLength(50).ShowClearButton(true))
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group">
+                            @(Html.DevExtreme().TextBox()
+                                .Label("Ngày được phép sửa").LabelMode(EditorLabelMode.Floating)
+                                .MaxLength(50).ShowClearButton(true))
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group">
                             @(Html.DevExtreme().CheckBox().Value(true).IconSize(18).ElementAttr("aria-label", "Custom size")

@@ -81,7 +81,7 @@ namespace AdminWeb.Areas.Category.Controllers
             },
               new SalePlanTypesResponseModel()
             {
-                SalePlanTypesId = 3,
+                SalePlanTypesId = 4,
                 Title = "FYP (VNĐ)",
                 Code = "FYP",
                 Icon = "SalePlan/FYP.png",
@@ -93,7 +93,7 @@ namespace AdminWeb.Areas.Category.Controllers
             },
               new SalePlanTypesResponseModel()
             {
-                SalePlanTypesId = 3,
+                SalePlanTypesId = 5,
                 Title = "Lượng hoạt động",
                 Code = "OperationNumber",
                 Icon = "SalePlan/ON.png",

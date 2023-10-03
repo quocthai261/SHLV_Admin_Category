@@ -49,7 +49,7 @@ namespace AdminWeb.Areas.Category.Controllers
         {
             new SalePlanConfigResponseModel {
                         SalePlanConfigId = 1,
-                        PositionCode = "FC",
+                        PositionCode = "",
                         AllowCreateDay = 27,
                         AllowEditDay = 29,
                         PlanType = 1,

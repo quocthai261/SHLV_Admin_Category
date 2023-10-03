@@ -9,6 +9,10 @@
     var confirmDeleteMessage = String.Format(@HtmlLocalizer["ConfirmDeleteMessage"].Value);
     var confirmDeleteTitle = String.Format(@HtmlLocalizer["ConfirmDeleteTitle"].Value);
 }
+@using (Html.DevExtreme().NamedTemplate("DeleteButton_cellTemplate"))
+{
+    <span class="glyphicon glyphicon-trash icon-grid" onclick="onDateleSalePlanConfigClicked()"></span>
+}
 
 <div class="container-fluid p-0">
     <h1 class="h4 mb-3 form-title"><strong>Danh sách kế hoạch kinh doanh</strong></h1>
@@ -74,7 +78,7 @@
                         .Columns(columns =>
                         {
                             columns.Add().Caption("").Width(70).CellTemplate(@<text>
-                                <span class="glyphicon glyphicon-edit icon-grid" onclick="onEditSalePlanConfigClicked()"></span>
+                                @*                    <span class="glyphicon glyphicon-edit icon-grid" onclick="onEditSalePlanConfigClicked()"></span> *@
                                 <span class="glyphicon glyphicon-trash icon-grid" onclick="onDateleSalePlanConfigClicked()"></span>
                             </text>);
                             columns.Add().DataField(nameof(SalePlanConfigResponseModel.SalePlanConfigId)).Visible(false);
@@ -86,8 +90,6 @@
                             .DisplayExpr("Title")
                             .ValueExpr("SalePlanTypesId")
                             );
-                            columns.Add().DataField(nameof(SalePlanConfigResponseModel.AllowCreateDay)).Caption("Ngày được phép tạo").Width(200).Alignment(HorizontalAlignment.Center);
-                            columns.Add().DataField(nameof(SalePlanConfigResponseModel.AllowEditDay)).Caption("Ngày được phép sửa").Width(200).Alignment(HorizontalAlignment.Center);
                             columns.Add().DataField(nameof(SalePlanConfigResponseModel.PositionCode)).Caption("Vị trí").Lookup(lookup => lookup
                             .DataSource(d => d.WebApi()
                             .Controller("Position")
@@ -96,6 +98,8 @@
                             .DisplayExpr("PositionName")
                             .ValueExpr("PositionCode")
                             );
+                            columns.Add().DataField(nameof(SalePlanConfigResponseModel.AllowCreateDay)).Caption("Ngày được phép tạo").Width(200).Alignment(HorizontalAlignment.Center);
+                            columns.Add().DataField(nameof(SalePlanConfigResponseModel.AllowEditDay)).Caption("Ngày được phép sửa").Width(200).Alignment(HorizontalAlignment.Center);
                             columns.Add().DataField(nameof(SalePlanConfigResponseModel.IsActive)).Caption("Sử dụng").DataType(GridColumnDataType.Boolean).Alignment(HorizontalAlignment.Center).Width(100);
                             columns.Add().DataField(nameof(SalePlanConfigResponseModel.CreationDate)).Caption("Ngày tạo").DataType(GridColumnDataType.DateTime).Format("dd/MM/yyyy  HH:mm").Alignment(HorizontalAlignment.Center).Width(150);
                             columns.Add().DataField(nameof(SalePlanConfigResponseModel.LastUpdatedDate)).Caption("Ngày cập nhật").DataType(GridColumnDataType.DateTime).Format("dd/MM/yyyy  HH:mm").Alignment(HorizontalAlignment.Center).Width(150);
@@ -116,6 +120,63 @@
                             pager.ShowPageSizeSelector(true);
                             pager.AllowedPageSizes(new[] { 5, 10, 20 });
                             pager.ShowInfo(true);
+                        })
+                        .MasterDetail(md =>
+                        {
+                            md.Enabled(true);
+                            md.Template(@<Text>
+                                <div class="container-fluid p-0">
+                                    <h1 class="h4 mb-3 form-title"><strong>Câu trả lời tiêu chí đánh giá</strong></h1>
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+                                            <div class="card flex-fill w-100 form-control-ui">
+                                                <div class="card-body py-3">
+                                                    @(
+                                                                Html.DevExtreme().DataGrid()
+                                                                .DataSource(d => d.WebApi()
+                                                                .Area("Category")
+                                                                .Controller("SalePlanConfigDetail")
+                                                                .LoadAction("GetSalePlanConfigDetailList")
+                                                                .LoadParams(new { id = new JS("data.SalePlanConfigId") })
+                                                                )
+                                                                .ShowBorders(true)
+                                                                .Selection(s => s.Mode(SelectionMode.Single))
+                                                                .Editing(editing =>
+                                                                {
+                                                                            editing.Mode(GridEditMode.Batch);
+                                                                            editing.AllowUpdating(true);
+                                                                            editing.AllowAdding(true);
+                                                                        })
+                                                                .Columns(columns =>
+                                                                {
+                                                                            columns.Add().Caption("").Width(70).CellTemplate(new TemplateName("DeleteButton_cellTemplate")).Alignment(HorizontalAlignment.Center);
+                                                                            columns.Add().DataField(nameof(SalePlanConfigDetailResponseModel.SalePlanConfigDetailId)).Visible(false);
+                                                                            columns.Add().DataField(nameof(SalePlanConfigDetailResponseModel.PlanTypeCode)).Caption("Chỉ tiêu kế hoạch kinh doanh").Lookup(lookup => lookup
+                                                                            .DataSource(d => d.WebApi()
+                                                                            .Controller("SalePlanTypes")
+                                                                            .LoadAction("GetSalePlanTypesList")
+                                                                            .Key("SalePlanConfigDetailId"))
+                                                                            .DisplayExpr(new JS("customeDisplayDetail"))
+                                                                            .ValueExpr("Code"));
+                                                                        })
+                                                                .ColumnHidingEnabled(true)
+                                                                .AllowColumnResizing(true)
+                                                                .ColumnAutoWidth(true)
+                                                                .ColumnMinWidth(50)
+                                                                .ShowRowLines(true)
+                                                                .FilterRow(f => f.Visible(false))
+                                                                .HeaderFilter(f => f.Visible(false))
+                                                                .GroupPanel(p => p.Visible(false))
+                                                                .Grouping(g => g.AutoExpandAll(false))
+                                                                .RemoteOperations(false)
+                                                                .Paging(paging => paging.PageSize(10))
+                                                                )
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Text>);
                         })
                         )
                 </div>
@@ -164,6 +225,13 @@
             });
         });
         e.cancel = true;
+    }
+
+
+    function customeDisplayDetail(item) {
+        if (item !== null && item !== undefined)
+            return item.Code + " - " + item.Title;
+        return null;
     }
 </script>
 

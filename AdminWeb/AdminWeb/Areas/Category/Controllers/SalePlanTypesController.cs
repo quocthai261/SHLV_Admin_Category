@@ -40,6 +40,7 @@ namespace AdminWeb.Areas.Category.Controllers
             return DataSourceLoader.Load(_response, loadOptions);
         }
 
+
         public static List<SalePlanTypesResponseModel> salePlanTypesList = new List<SalePlanTypesResponseModel>()
         {
             new SalePlanTypesResponseModel()
@@ -74,6 +75,30 @@ namespace AdminWeb.Areas.Category.Controllers
                 Icon = "SalePlan/K2.png",
                 Color = "#FFF",
                 Unit = "VND",
+                IsActive = true,
+                CreationDate=DateTime.Now,
+                LastUpdatedDate=DateTime.Now,
+            },
+              new SalePlanTypesResponseModel()
+            {
+                SalePlanTypesId = 4,
+                Title = "FYP (VNĐ)",
+                Code = "FYP",
+                Icon = "SalePlan/FYP.png",
+                Color = "#FFF",
+                Unit = "VND",
+                IsActive = true,
+                CreationDate=DateTime.Now,
+                LastUpdatedDate=DateTime.Now,
+            },
+              new SalePlanTypesResponseModel()
+            {
+                SalePlanTypesId = 5,
+                Title = "Lượng hoạt động",
+                Code = "OperationNumber",
+                Icon = "SalePlan/ON.png",
+                Color = "#FFF",
+                Unit = "",
                 IsActive = true,
                 CreationDate=DateTime.Now,
                 LastUpdatedDate=DateTime.Now,

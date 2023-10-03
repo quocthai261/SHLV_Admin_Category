@@ -2,7 +2,6 @@
 @using AdminWeb.Models
 @using AdminWeb.Areas.Category.Controllers
 @using Microsoft.AspNetCore.Mvc.Localization
-
 @inject IHtmlLocalizer<SyncJobsController> HtmlLocalizer
 
 @{
@@ -16,46 +15,9 @@
         <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
             <div class="card flex-fill w-100 form-control-ui">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Tìm kiếm</h5>
+                    <h5 class="card-title mb-0"></h5>
                     <button class="btn btn-purple-invert btn-filter" type="submit" onclick="onAddNewSyncJobsClicked()"><span class="glyphicon glyphicon-plus"></span> Thêm mới</button>
                 </div>
-                <div class="card-body py-3">
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                            <div class="form-group">
-                                @(Html.DevExtreme().TextBox()
-                                    .Label("ID loại lịch trình").LabelMode(EditorLabelMode.Floating)
-                                    .MaxLength(50).ShowClearButton(true))
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                            <div class="form-group">
-                                @(Html.DevExtreme().TextBox()
-                                    .Label("Mô tả lịch trình").LabelMode(EditorLabelMode.Floating)
-                                    .MaxLength(100).ShowClearButton(true))
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                            <div class="form-group">
-                                @(Html.DevExtreme().TextBox()
-                                    .Label("Mô tả công việc").LabelMode(EditorLabelMode.Floating)
-                                    .MaxLength(100).ShowClearButton(true))
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row button-search-row">
-                        <div class="col-md-12">
-                            <button class="btn btn-purple-style" type="submit">@HtmlLocalizer["Clear"]</button>
-                            <button class="btn btn-purple-style" type="submit">@HtmlLocalizer["Search"]</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
-            <div class="card flex-fill w-100 form-control-ui">
                 <div class="card-body py-3">
                     @(Html.DevExtreme().DataGrid()
                         .ID("gridSyncJobsList")
@@ -70,18 +32,19 @@
                         .Export(e => e.Enabled(true).AllowExportSelectedData(false)).OnExporting("exportingGridSyncJobs")
                         .Columns(columns =>
                         {
-                            columns.Add().Caption("").Width(70).CellTemplate(@<text>
+                            columns.Add().Caption("").Width(120).CellTemplate(@<text>
                                 <span class="glyphicon glyphicon-edit icon-grid" onclick="onEditSyncJobsClicked()"></span>
+                                <span class="glyphicon glyphicon-ok-circle icon-grid" onclick=""></span>
                                 <span class="glyphicon glyphicon-trash icon-grid" onclick="onDateleSyncJobsClicked()"></span>
+                                <span class="glyphicon glyphicon-play-circle icon-grid" onclick=""></span>
                             </text>);
                             columns.Add().DataField(nameof(SyncJobsResponseModel.JobId)).Caption("ID").Visible(false);
-                            columns.Add().DataField(nameof(SyncJobsResponseModel.ScheduleTypeId)).Caption("ID loại lịch trình");
                             columns.Add().DataField(nameof(SyncJobsResponseModel.ScheduleDescription)).Caption("Mô tả lịch trình");
                             columns.Add().DataField(nameof(SyncJobsResponseModel.Description)).Caption("Mô tả công việc");
                             columns.Add().DataField(nameof(SyncJobsResponseModel.Enable)).Caption("Enable").DataType(GridColumnDataType.Boolean);
                             columns.Add().DataField(nameof(SyncJobsResponseModel.Valid)).Caption("Valid").DataType(GridColumnDataType.Boolean);
                             columns.Add().DataField(nameof(SyncJobsResponseModel.JobIsRunning)).Caption("Công việc đang chạy").DataType(GridColumnDataType.Boolean);
-                            columns.Add().DataField(nameof(SyncJobsResponseModel.ForceRun)).Caption("Bất buộc chạy").DataType(GridColumnDataType.Boolean);
+                            columns.Add().DataField(nameof(SyncJobsResponseModel.ForceRun)).Caption("Bắt buộc chạy").DataType(GridColumnDataType.Boolean);
                             columns.Add().DataField(nameof(SyncJobsResponseModel.CreationDate)).Caption("Ngày tạo").DataType(GridColumnDataType.DateTime).Format("dd/MM/yyyy  HH:mm").Alignment(HorizontalAlignment.Center).Width(150);
                             columns.Add().DataField(nameof(SyncJobsResponseModel.LastUpdatedDate)).Caption("Ngày cập nhật").DataType(GridColumnDataType.DateTime).Format("dd/MM/yyyy  HH:mm").Alignment(HorizontalAlignment.Center).Width(150);
                         })

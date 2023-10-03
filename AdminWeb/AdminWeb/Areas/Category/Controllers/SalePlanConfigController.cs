@@ -138,63 +138,6 @@ namespace AdminWeb.Areas.Category.Controllers
                         LastUpdatedDate = DateTime.Now,
                     },  
         };
-
-        //Fake PlanType
-      /*  [HttpGet]
-        public object GetPlanTypeFakeList(DataSourceLoadOptions loadOptions)
-        {
-            var _response = planTypeFakes;
-
-            return DataSourceLoader.Load(_response, loadOptions);
-        }
-        public static List<PlanTypeFake> planTypeFakes = new List<PlanTypeFake>()
-        {
-            new PlanTypeFake
-            {
-                PlanTypeId = 1,
-                PlanName = "Kế hoạch bán hàng"
-            },
-            new PlanTypeFake
-            {
-                PlanTypeId = 2,
-                PlanName = "Kế hoạch bán hàng"
-            },
-            new PlanTypeFake
-            {
-                PlanTypeId = 3,
-                PlanName = "Kế hoạch mở rộng"
-            },
-            new PlanTypeFake
-            {
-                PlanTypeId = 4,
-                PlanName = "Kế hoạch quản lý"
-            },
-            new PlanTypeFake
-            {
-                PlanTypeId = 5,
-                PlanName = "Kế hoạch tăng doanh số"
-            },
-            new PlanTypeFake
-            {
-                PlanTypeId = 6,
-                PlanName = "Kế hoạch marketing"
-            },
-            new PlanTypeFake
-            {
-                PlanTypeId = 7,
-                PlanName = "Kế hoạch giảm chi phí"
-            },
-            new PlanTypeFake
-            {
-                PlanTypeId = 8,
-                PlanName = "Kế hoạch xử lý khủng hoảng"
-            },
-            new PlanTypeFake
-            {
-                PlanTypeId = 9,
-                PlanName ="Kế hoạch gia tăng khách hàng tiềm năng"
-            }
-        };*/
         #endregion
     }
 }
